@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     public Rigidbody2D rb;
     public Camera cam;
+    public GameObject crosshair;
 
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
@@ -18,7 +19,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        crosshair.SetActive(true);
     }
 
     // Update is called once per frame
