@@ -16,6 +16,11 @@ public class PlayerController : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform firePoint;
     public float bulletForce = 20f;
+
+    [Header("Possession Settings")]
+    private Enemy possessedEnemy;
+    private bool isPossessing = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -33,6 +38,50 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             Shoot();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (!isPossessing)
+            {
+                TryPossessEnemy();
+            }
+        }
+
+        if (isPossessing && possessedEnemy != null)
+        {
+            ControlEnemy();
+        }
+    }
+
+    void TryPossessEnemy()
+    {
+        Collider2D hit = Physics2D.OverlapCircle(transform.position, 2f, LayerMask.GetMask("Enemy"));
+        if (hit != null)
+        {
+            possessedEnemy = hit.GetComponent<Enemy>();
+            hit.GetComponent<Enemy>().possessed = true;
+            if (possessedEnemy != null)
+            {
+                isPossessing = true;
+                gameObject.SetActive(false); // Hide/disable player when possessing
+            }
+        }
+    }
+
+
+    void ControlEnemy()
+    {
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
+        Vector2 moveDir = new Vector2(moveX, moveY).normalized;
+
+        possessedEnemy.transform.position += (Vector3)(moveDir * possessedEnemy.moveSpeed * Time.deltaTime);
+
+        if (moveDir != Vector2.zero)
+        {
+            float angle = Mathf.Atan2(moveDir.y, moveDir.x) * Mathf.Rad2Deg;
+            possessedEnemy.transform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
 
