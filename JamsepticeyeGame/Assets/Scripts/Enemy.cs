@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -14,16 +15,20 @@ public class Enemy : MonoBehaviour
 
     public bool possessed = false;
 
-    public double suspicionMeter = 0;
+    public float suspicionMeter = 0;
+    private Slider susSlider;
 
     void Start()
     {
         player = GameObject.Find("Player").transform;
+        susSlider = GetComponentInChildren<Slider>();
+
     }
 
     void Update()
     {
         playerInAttackRange = Physics2D.OverlapCircle(transform.position, attackRange, playerLayer);
+        susSlider.value = suspicionMeter;
 
         if (!playerInAttackRange)
         {
@@ -32,8 +37,17 @@ public class Enemy : MonoBehaviour
 
         if (possessed)
         {
+            GetComponentInChildren<Canvas>().enabled = false;
+            suspicionMeter = 0;
             GetComponent<PlayerController>().enabled = true;
             GetComponent<Enemy>().enabled = false;
+            gameObject.layer = LayerMask.NameToLayer("Player");
+
+            Collider2D hit = Physics2D.OverlapCircle(transform.position, 5f, LayerMask.GetMask("Enemy"));
+            if (hit != null)
+            {
+                hit.GetComponent<Enemy>().suspicionMeter++;
+            }
         }
     }
 

@@ -64,11 +64,10 @@ public class PlayerController : MonoBehaviour
             if (possessedEnemy != null)
             {
                 isPossessing = true;
-                gameObject.SetActive(false); // Hide/disable player when possessing
+                gameObject.SetActive(false);
             }
         }
     }
-
 
     void ControlEnemy()
     {
