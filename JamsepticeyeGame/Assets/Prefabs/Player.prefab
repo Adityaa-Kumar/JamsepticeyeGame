@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 9118190375337360274}
   - component: {fileID: 4807628370653842105}
   - component: {fileID: 5819055421246931826}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -213,6 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 4807628370653842105}
   cam: {fileID: 0}
+  crosshair: {fileID: 0}
   moveSpeed: 5
   bulletPrefab: {fileID: 2333448371461879564, guid: f4bf1146b574ee29d8f35f4331c27ebf, type: 3}
   firePoint: {fileID: 5158278655624732424}
