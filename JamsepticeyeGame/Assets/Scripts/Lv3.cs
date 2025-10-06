@@ -1,16 +1,22 @@
 using UnityEngine;
 
-public class Crosshair : MonoBehaviour
+public class Lv3 : MonoBehaviour
 {
+    public GameObject canvas;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Cursor.visible = false;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = Input.mousePosition;
+
+    }
+    
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        canvas.SetActive(true);
     }
 }

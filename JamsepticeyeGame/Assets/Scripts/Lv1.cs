@@ -1,24 +1,25 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Bullet : MonoBehaviour
+public class Lv1 : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Destroy(gameObject, 3f);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
 
-    void OllisionEnter2D(Collision2D collision)
+    }
+    
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            SceneManager.LoadScene("Level2");
         }
     }
 }
